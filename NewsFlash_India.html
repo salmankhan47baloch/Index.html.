@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NewsFlash India — सबसे पहले, सबसे सटीक</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=Noto+Sans+Devanagari:wght@400;600;700&family=Noto+Sans+Gujarati:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--red:#D0021B;--dark:#0D0D0D;--light:#F7F4EF;--border:#E0D8CE;--accent:#F5A623;--text:#1A1A1A;--muted:#6B6560;}
+body{font-family:'DM Sans',sans-serif;background:var(--light);color:var(--text);}
+.lang-hi{font-family:'Noto Sans Devanagari',sans-serif;}
+.lang-gu{font-family:'Noto Sans Gujarati',sans-serif;}
+
+.topbar{background:var(--dark);color:#fff;font-size:11px;padding:6px 20px;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.ticker{overflow:hidden;flex:1;margin:0 12px;}
+.ticker-inner{display:flex;gap:40px;animation:tick 26s linear infinite;white-space:nowrap;}
+.ticker-inner span::before{content:"● ";color:var(--red);}
+@keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.lang-switch{display:flex;border:1px solid rgba(255,255,255,0.25);flex-shrink:0;}
+.lang-btn{padding:4px 12px;font-size:11px;font-weight:700;cursor:pointer;background:transparent;color:rgba(255,255,255,0.6);border:none;transition:all 0.2s;}
+.lang-btn.active{background:var(--red);color:#fff;}
+
+header{border-bottom:3px solid var(--dark);padding:0 20px;}
+.header-top{max-width:1040px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:14px 0 10px;}
+.logo{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;letter-spacing:-1px;line-height:1;}
+.logo span{color:var(--red);}
+.logo-sub{font-size:9px;letter-spacing:0.15em;color:var(--muted);margin-top:3px;}
+.nav-wrap{max-width:1040px;margin:0 auto;}
+nav{display:flex;border-top:1px solid var(--border);}
+.nav-item{padding:10px 14px;font-size:12px;font-weight:600;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-3px;transition:color 0.2s;white-space:nowrap;}
+.nav-item:hover,.nav-item.active{color:var(--red);border-bottom-color:var(--red);}
+.admin-btn{padding:10px 14px;font-size:12px;font-weight:700;cursor:pointer;background:var(--red);color:#fff;margin-left:auto;white-space:nowrap;border:none;}
+
+.container{max-width:1040px;margin:0 auto;padding:0 20px;}
+.breaking-bar{background:var(--red);color:#fff;padding:9px 16px;display:flex;align-items:center;gap:14px;margin:16px 0 18px;}
+.breaking-label{font-size:10px;font-weight:700;letter-spacing:0.1em;background:#fff;color:var(--red);padding:3px 8px;white-space:nowrap;}
+
+.hero-grid{display:grid;grid-template-columns:2fr 1fr;gap:18px;margin-bottom:24px;}
+.hero-main{position:relative;cursor:pointer;}
+.hero-img-ph{width:100%;height:290px;display:flex;align-items:flex-end;padding:20px;position:relative;overflow:hidden;background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);}
+.hero-img-ph::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;height:180px;background:var(--red);opacity:0.12;border-radius:50%;}
+.hero-badge{position:absolute;top:14px;left:14px;background:var(--red);color:#fff;font-size:9px;font-weight:700;letter-spacing:0.1em;padding:3px 8px;}
+.hero-content{position:absolute;bottom:0;left:0;right:0;padding:20px;background:linear-gradient(transparent,rgba(0,0,0,0.88));}
+.hero-cat{font-size:9px;font-weight:700;letter-spacing:0.1em;color:var(--accent);margin-bottom:5px;}
+.hero-title{font-size:19px;font-weight:700;color:#fff;line-height:1.3;margin-bottom:5px;}
+.hero-meta{font-size:10px;color:rgba(255,255,255,0.55);}
+
+.side-stack{display:flex;flex-direction:column;gap:10px;}
+.side-card{display:flex;gap:10px;padding:11px;background:#fff;border:1px solid var(--border);cursor:pointer;transition:border-color 0.2s;}
+.side-card:hover{border-color:var(--red);}
+.thumb-ph{width:68px;height:60px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px;}
+.side-cat{font-size:9px;font-weight:700;letter-spacing:0.08em;color:var(--red);margin-bottom:3px;}
+.side-title{font-size:13px;font-weight:700;line-height:1.3;margin-bottom:2px;}
+.side-meta{font-size:9px;color:var(--muted);}
+
+.section-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;border-bottom:2px solid var(--dark);padding-bottom:8px;}
+.section-title{font-size:18px;font-weight:700;}
+.section-line{flex:1;height:1px;background:var(--border);}
+.card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:26px;}
+.card{background:#fff;border:1px solid var(--border);cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,0.07);}
+.card-thumb{height:130px;display:flex;align-items:center;justify-content:center;font-size:34px;}
+.card-body{padding:11px;}
+.card-cat{font-size:9px;font-weight:700;letter-spacing:0.08em;color:var(--red);margin-bottom:4px;}
+.card-title{font-size:13px;font-weight:700;line-height:1.3;margin-bottom:5px;}
+.card-meta{font-size:10px;color:var(--muted);}
+
+.score-bar{background:var(--dark);color:#fff;padding:11px 16px;display:flex;gap:20px;overflow-x:auto;margin-bottom:20px;align-items:center;}
+.score-label{font-size:9px;font-weight:700;letter-spacing:0.1em;color:var(--accent);white-space:nowrap;}
+.match{display:flex;align-items:center;gap:7px;white-space:nowrap;font-size:11px;padding:0 14px;border-left:1px solid rgba(255,255,255,0.1);}
+.match-team{font-weight:600;}
+.match-score{font-size:14px;font-weight:700;color:var(--accent);padding:0 3px;}
+.match-status{font-size:9px;color:rgba(255,255,255,0.45);}
+
+/* ADMIN */
+.admin-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:100;display:none;align-items:flex-start;justify-content:flex-end;}
+.admin-overlay.open{display:flex;}
+.admin-panel{background:#fff;width:380px;height:100%;overflow-y:auto;padding:22px;box-shadow:-4px 0 32px rgba(0,0,0,0.16);}
+.admin-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid var(--dark);}
+.admin-title{font-size:18px;font-weight:700;}
+.close-btn{background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted);}
+.close-btn:hover{color:var(--red);}
+.form-lang-tabs{display:flex;margin-bottom:16px;border:1px solid var(--border);}
+.flang-btn{flex:1;padding:8px;font-size:12px;font-weight:700;cursor:pointer;background:#fff;border:none;color:var(--muted);transition:all 0.2s;}
+.flang-btn.active{background:var(--dark);color:#fff;}
+.form-group{margin-bottom:13px;}
+label{display:block;font-size:10px;font-weight:700;letter-spacing:0.07em;color:var(--muted);margin-bottom:5px;}
+input[type=text],select,textarea{width:100%;padding:8px 11px;border:1px solid var(--border);font-size:13px;background:#fff;color:var(--text);outline:none;transition:border-color 0.2s;font-family:inherit;}
+input[type=text]:focus,select:focus{border-color:var(--dark);}
+.submit-btn{width:100%;padding:11px;background:var(--red);color:#fff;border:none;font-size:13px;font-weight:700;letter-spacing:0.05em;cursor:pointer;transition:opacity 0.2s;margin-top:2px;}
+.submit-btn:hover{opacity:0.88;}
+.news-list{margin-top:18px;border-top:1px solid var(--border);padding-top:14px;}
+.news-list-title{font-size:11px;font-weight:700;letter-spacing:0.08em;color:var(--muted);margin-bottom:10px;}
+.news-item-row{display:flex;justify-content:space-between;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--border);gap:8px;}
+.ni-title{font-size:12px;font-weight:600;line-height:1.3;flex:1;}
+.ni-cat{font-size:9px;font-weight:700;color:var(--red);margin-top:2px;}
+.del-btn{background:none;border:none;color:#ccc;cursor:pointer;font-size:15px;flex-shrink:0;}
+.del-btn:hover{color:var(--red);}
+
+footer{background:var(--dark);color:#fff;padding:20px;margin-top:6px;}
+.footer-inner{max-width:1040px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;}
+.footer-logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:900;}
+.footer-logo span{color:var(--red);}
+.footer-copy{font-size:10px;opacity:0.4;margin-top:3px;}
+.footer-links{display:flex;gap:16px;font-size:11px;opacity:0.55;}
+
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--dark);color:#fff;padding:9px 20px;font-size:13px;font-weight:500;z-index:999;opacity:0;transition:opacity 0.3s;pointer-events:none;}
+.toast.show{opacity:1;}
+.section-pane{display:none;}
+.section-pane.active{display:block;}
+.fade-card{animation:fadeC 0.4s forwards;}
+@keyframes fadeC{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+@media(max-width:700px){
+  .hero-grid{grid-template-columns:1fr;}
+  .card-grid{grid-template-columns:1fr 1fr;}
+  .admin-panel{width:100%;}
+}
+@media(max-width:480px){
+  .card-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <span style="opacity:0.6;">LIVE</span>
+  <div class="ticker"><div class="ticker-inner" id="ticker-wrap">
+    <span>India ne T20 World Cup squad announce kiya</span>
+    <span>Budget 2026 mein Income Tax limit ₹10 lakh</span>
+    <span>SRK ki nayi film ka trailer viral</span>
+    <span>India ne T20 World Cup squad announce kiya</span>
+    <span>Budget 2026 mein Income Tax limit ₹10 lakh</span>
+    <span>SRK ki nayi film ka trailer viral</span>
+  </div></div>
+  <div style="display:flex;align-items:center;gap:12px;flex-shrink:0;">
+    <span id="live-time" style="opacity:0.6;font-size:10px;"></span>
+    <div class="lang-switch">
+      <button class="lang-btn active" onclick="setLang('hi',this)">हिंदी</button>
+      <button class="lang-btn" onclick="setLang('gu',this)">ગુજરાતી</button>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-top">
+    <div>
+      <div class="logo">News<span>Flash</span> India</div>
+      <div class="logo-sub" id="logo-sub">सबसे पहले, सबसे सटीक</div>
+    </div>
+    <div style="font-size:12px;color:var(--muted);text-align:right;">
+      <strong id="hdate" style="display:block;font-size:13px;color:var(--text);"></strong>
+      <span id="hdr-live">Breaking News 24/7</span>
+    </div>
+  </div>
+  <div class="nav-wrap">
+    <nav>
+      <div class="nav-item active" id="nav-home" onclick="showSec('home',this)">Home</div>
+      <div class="nav-item" id="nav-politics" onclick="showSec('politics',this)">राजनीति</div>
+      <div class="nav-item" id="nav-sports" onclick="showSec('sports',this)">खेल</div>
+      <div class="nav-item" id="nav-entertainment" onclick="showSec('entertainment',this)">मनोरंजन</div>
+      <button class="admin-btn" id="admin-btn" onclick="openAdmin()">+ न्यूज़ डालो</button>
+    </nav>
+  </div>
+</header>
+
+<!-- HOME -->
+<div id="sec-home" class="section-pane active">
+<div class="container">
+  <div class="breaking-bar">
+    <span class="breaking-label" id="break-lbl">ब्रेकिंग</span>
+    <span id="breaking-text" style="font-size:13px;font-weight:500;">India ne T20 World Cup ke liye 15-member squad announce kiya — Rohit Sharma captain banaye gaye</span>
+  </div>
+  <div class="score-bar">
+    <span class="score-label" id="score-lbl">लाइव स्कोर</span>
+    <div class="match"><span class="match-team">IND</span><span class="match-score">287/4</span><span style="opacity:0.4;font-size:10px;">vs</span><span class="match-score">241</span><span class="match-team">AUS</span><span class="match-status" style="margin-left:6px;">42.3 OV</span></div>
+    <div class="match"><span class="match-team">MI</span><span class="match-score">189/6</span><span style="opacity:0.4;font-size:10px;">vs</span><span class="match-score">185/8</span><span class="match-team">CSK</span><span class="match-status" style="margin-left:6px;">FINISHED</span></div>
+    <div class="match"><span class="match-team">RCB</span><span class="match-score">142/3</span><span style="opacity:0.4;font-size:10px;">vs</span><span class="match-team">KKR</span><span class="match-status" style="margin-left:6px;">LIVE</span></div>
+  </div>
+  <div class="hero-grid">
+    <div class="hero-main">
+      <div class="hero-img-ph">
+        <div class="hero-badge">TOP STORY</div>
+        <div class="hero-content">
+          <div class="hero-cat" id="hero-cat">राजनीति</div>
+          <div class="hero-title lang-hi" id="hero-title">Budget 2026: Sarkar ne middle class ko diya bada tohfa — Income Tax limit badhkar ₹10 lakh</div>
+          <div class="hero-meta" id="hero-meta">अभी · NewsFlash Desk</div>
+        </div>
+      </div>
+    </div>
+    <div class="side-stack">
+      <div class="side-card"><div class="thumb-ph" style="background:#fff5e6;">🏏</div><div><div class="side-cat" id="sc1">खेल</div><div class="side-title lang-hi" id="st1">Virat Kohli ne ODI career ka 50th century lagaya</div><div class="side-meta" id="sm1">1 घंटे पहले</div></div></div>
+      <div class="side-card"><div class="thumb-ph" style="background:#fef0f5;">🎬</div><div><div class="side-cat" id="sc2">मनोरंजन</div><div class="side-title lang-hi" id="st2">SRK ki nayi film ka trailer hua release — 10cr views</div><div class="side-meta" id="sm2">3 घंटे पहले</div></div></div>
+      <div class="side-card"><div class="thumb-ph" style="background:#f0f5ff;">🗳️</div><div><div class="side-cat" id="sc3">राजनीति</div><div class="side-title lang-hi" id="st3">5 raajyon mein chunaav ki taareekhen ghoshit</div><div class="side-meta" id="sm3">5 घंटे पहले</div></div></div>
+    </div>
+  </div>
+  <div class="section-header"><div class="section-title" id="latest-title">ताज़ा खबर</div><div class="section-line"></div></div>
+  <div class="card-grid" id="home-cards">
+    <div class="card"><div class="card-thumb" style="background:#0f3460;color:#fff;">🗳️</div><div class="card-body"><div class="card-cat">राजनीति</div><div class="card-title lang-hi">GST bill par Opposition walkout, Parliament mein hungama</div><div class="card-meta">आज · 09:30</div></div></div>
+    <div class="card"><div class="card-thumb" style="background:#1a472a;color:#fff;">🏆</div><div class="card-body"><div class="card-cat">खेल</div><div class="card-title lang-hi">Neeraj Chopra ne World Athletics mein silver medal jeeta</div><div class="card-meta">कल · 06:45</div></div></div>
+    <div class="card"><div class="card-thumb" style="background:#4a1235;color:#fff;">🎵</div><div class="card-body"><div class="card-cat">मनोरंजन</div><div class="card-title lang-hi">Arijit Singh "Rooh" album Spotify par #1 — 5cr streams</div><div class="card-meta">कल · 11:00</div></div></div>
+  </div>
+</div>
+</div>
+
+<!-- POLITICS -->
+<div id="sec-politics" class="section-pane">
+<div class="container" style="padding-top:20px;">
+  <div class="section-header"><div class="section-title" id="pol-title">राजनीति</div><div class="section-line"></div></div>
+  <div class="card-grid" id="politics-cards">
+    <div class="card"><div class="card-thumb" style="background:#1a237e;color:#fff;">🏛️</div><div class="card-body"><div class="card-cat">राजनीति</div><div class="card-title lang-hi">Budget 2026 mein income tax mein bada badlav</div><div class="card-meta">आज · 10:00</div></div></div>
+    <div class="card"><div class="card-thumb" style="background:#b71c1c;color:#fff;">🗳️</div><div class="card-body"><div class="card-cat">राजनीति</div><div class="card-title lang-hi">Rajya Sabha mein naye bill par gehri bahas</div><div class="card-meta">आज · 08:15</div></div></div>
+  </div>
+</div>
+</div>
+
+<!-- SPORTS -->
+<div id="sec-sports" class="section-pane">
+<div class="container" style="padding-top:20px;">
+  <div class="section-header"><div class="section-title" id="spo-title">खेल समाचार</div><div class="section-line"></div></div>
+  <div class="card-grid" id="sports-cards">
+    <div class="card"><div class="card-thumb" style="background:#e65100;color:#fff;">🏏</div><div class="card-body"><div class="card-cat">क्रिकेट</div><div class="card-title lang-hi">Kohli ka 50th ODI century — world record ke paas</div><div class="card-meta">आज · 03:30</div></div></div>
+    <div class="card"><div class="card-thumb" style="background:#004d40;color:#fff;">🏅</div><div class="card-body"><div class="card-cat">एथलेटिक्स</div><div class="card-title lang-hi">Neeraj Chopra silver — gold ke bahut kareeb</div><div class="card-meta">कल · 06:45</div></div></div>
+  </div>
+</div>
+</div>
+
+<!-- ENTERTAINMENT -->
+<div id="sec-entertainment" class="section-pane">
+<div class="container" style="padding-top:20px;">
+  <div class="section-header"><div class="section-title" id="ent-title">मनोरंजन</div><div class="section-line"></div></div>
+  <div class="card-grid" id="entertainment-cards">
+    <div class="card"><div class="card-thumb" style="background:#4a148c;color:#fff;">🎬</div><div class="card-body"><div class="card-cat">बॉलीवुड</div><div class="card-title lang-hi">SRK ki film ka trailer viral — 10 crore views</div><div class="card-meta">आज · 12:00</div></div></div>
+    <div class="card"><div class="card-thumb" style="background:#880e4f;color:#fff;">🎵</div><div class="card-body"><div class="card-cat">संगीत</div><div class="card-title lang-hi">Arijit Singh "Rooh" album ne spotify record toda</div><div class="card-meta">कल · 11:00</div></div></div>
+  </div>
+</div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div><div class="footer-logo">News<span>Flash</span> India</div><div class="footer-copy" id="footer-copy">© 2026 NewsFlash India · सर्वाधिकार सुरक्षित</div></div>
+    <div class="footer-links" id="footer-links"><span>हमारे बारे में</span><span>संपर्क</span><span>Privacy</span></div>
+  </div>
+</footer>
+
+<!-- ADMIN -->
+<div class="admin-overlay" id="adminOverlay" onclick="overlayClick(event)">
+  <div class="admin-panel">
+    <div class="admin-header">
+      <div class="admin-title" id="ap-title">न्यूज़ डालो</div>
+      <button class="close-btn" onclick="closeAdmin()">✕</button>
+    </div>
+    <div class="form-lang-tabs">
+      <button class="flang-btn active" id="flang-hi" onclick="setFormLang('hi')">हिंदी में लिखें</button>
+      <button class="flang-btn" id="flang-gu" onclick="setFormLang('gu')">ગુજરાતીમાં લખો</button>
+    </div>
+    <div class="form-group">
+      <label id="lbl-headline">HEADLINE (शीर्षक)</label>
+      <input type="text" id="f-title" placeholder="यहाँ अपनी खबर लिखें...">
+    </div>
+    <div class="form-group">
+      <label>CATEGORY</label>
+      <select id="f-cat">
+        <option value="RAJNEETI" data-hi="राजनीति" data-gu="રાજકારણ">🗳️ राजनीति / રાજકારણ</option>
+        <option value="KHEL" data-hi="खेल" data-gu="રમત">🏏 खेल / રમત</option>
+        <option value="MANORANJAN" data-hi="मनोरंजन" data-gu="મનોરંજન">🎬 मनोरंजन / મનોરંજન</option>
+        <option value="BREAKING">🔴 Breaking News</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>EMOJI</label>
+      <select id="f-emoji">
+        <option>📰</option><option>🗳️</option><option>🏏</option><option>⚽</option>
+        <option>🏆</option><option>🎬</option><option>🎵</option><option>🔴</option>
+        <option>💰</option><option>🌍</option><option>🏥</option><option>📚</option>
+      </select>
+    </div>
+    <button class="submit-btn" id="submit-btn" onclick="addNews()">+ खबर PUBLISH करो</button>
+    <div class="news-list">
+      <div class="news-list-title">PUBLISHED NEWS (<span id="news-count">0</span>)</div>
+      <div id="news-list-body"></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const TR={
+  hi:{logoSub:'सबसे पहले, सबसे सटीक',breaking:'ब्रेकिंग',scoreLbl:'लाइव स्कोर',latestTitle:'ताज़ा खबर',polTitle:'राजनीति',spoTitle:'खेल समाचार',entTitle:'मनोरंजन',navHome:'Home',navPol:'राजनीति',navSpo:'खेल',navEnt:'मनोरंजन',adminBtn:'+ न्यूज़ डालो',apTitle:'न्यूज़ डालो',lblHeadline:'HEADLINE (शीर्षक)',submitBtn:'+ खबर PUBLISH करो',footerCopy:'© 2026 NewsFlash India · सर्वाधिकार सुरक्षित',footerLinks:['हमारे बारे में','संपर्क','Privacy'],heroTitle:'Budget 2026: Sarkar ne middle class ko diya bada tohfa — Income Tax limit badhkar ₹10 lakh',heroCat:'राजनीति',heroMeta:'अभी · NewsFlash Desk',st1:'Virat Kohli ne ODI career ka 50th century lagaya',st2:'SRK ki nayi film ka trailer hua release — 10cr views',st3:'5 raajyon mein chunaav ki taareekhen ghoshit',sm1:'1 घंटे पहले',sm2:'3 घंटे पहले',sm3:'5 घंटे पहले',sc1:'खेल',sc2:'मनोरंजन',sc3:'राजनीति',breakingText:'India ne T20 World Cup ke liye 15-member squad announce kiya — Rohit Sharma captain',toastAdded:'खबर publish हो गई! ✓',toastDeleted:'खबर हटा दी गई',toastFill:'Headline likhna zaroori hai!',days:['रविवार','सोमवार','मंगलवार','बुधवार','गुरुवार','शुक्रवार','शनिवार'],months:['जनवरी','फरवरी','मार्च','अप्रैल','मई','जून','जुलाई','अगस्त','सितंबर','अक्टूबर','नवंबर','दिसंबर'],placeholder:'यहाँ अपनी खबर लिखें...',fontClass:'lang-hi',ticker:['India ne T20 World Cup squad announce kiya','Budget 2026 mein Income Tax limit ₹10 lakh','SRK ki nayi film ka trailer viral']},
+  gu:{logoSub:'સૌ પ્રથમ, સૌ સચ્ચો',breaking:'બ્રેકિંગ',scoreLbl:'લાઈવ સ્કોર',latestTitle:'તાઝા ખબર',polTitle:'રાજકારણ',spoTitle:'રમત સમાચાર',entTitle:'મનોરંજન',navHome:'હોમ',navPol:'રાજકારણ',navSpo:'રમત',navEnt:'મનોરંજન',adminBtn:'+ સમાચાર ઉમેરો',apTitle:'સમાચાર ઉમેરો',lblHeadline:'HEADLINE (શીર્ષક)',submitBtn:'+ સમાચાર PUBLISH કરો',footerCopy:'© 2026 NewsFlash India · બધા અધિકારો સુરક્ષિત',footerLinks:['અમારા વિશે','સંપર્ક','Privacy'],heroTitle:'Budget 2026: સરકારે મધ્યમ વર્ગને આપ્યો મોટો ઉપહાર — Income Tax મર્યાદા ₹10 લાખ',heroCat:'રાજકારણ',heroMeta:'હમણાં · NewsFlash Desk',st1:'Virat Kohli એ ODI career નો 50મો century ફટકાર્યો',st2:'SRK ની નવી ફિલ્મ નો trailer release — 10 કરોડ views',st3:'5 રાજ્યોમાં ચૂંટણીની તારીખો જાહેર',sm1:'1 કલાક પહેલા',sm2:'3 કલાક પહેલા',sm3:'5 કલાક પહેલા',sc1:'રમત',sc2:'મનોરંજન',sc3:'રાજકારણ',breakingText:'India એ T20 World Cup માટે 15 સભ્યોની squad જાહેર — Rohit Sharma captain',toastAdded:'સમાચાર publish થઈ ગયા! ✓',toastDeleted:'સમાચાર દૂર કર્યા',toastFill:'Headline લખવી જરૂરી છે!',days:['રવિવાર','સોમવાર','મંગળવાર','બુધવાર','ગુરુવાર','શુક્રવાર','શનિવાર'],months:['જાન્યુઆરી','ફેબ્રુઆરી','માર્ચ','એપ્રિલ','મે','જૂન','જુલાઈ','ઓગસ્ટ','સપ્ટેમ્બર','ઓક્ટોબર','નવેમ્બર','ડિસેમ્બર'],placeholder:'અહીં તમારા સમાચાર લખો...',fontClass:'lang-gu',ticker:['India T20 World Cup squad જાહેર','Budget 2026 Income Tax ₹10 લાખ','SRK ની ફિલ્મ trailer viral']}
+};
+
+let curLang='hi',formLang='hi',userNews=[];
+
+function pad(n){return n<10?'0'+n:n;}
+function updateTime(){const n=new Date();document.getElementById('live-time').textContent=pad(n.getHours())+':'+pad(n.getMinutes())+':'+pad(n.getSeconds())+' IST';}
+updateTime();setInterval(updateTime,1000);
+
+function updateDate(lang){const t=TR[lang],n=new Date();document.getElementById('hdate').textContent=t.days[n.getDay()]+', '+n.getDate()+' '+t.months[n.getMonth()]+' '+n.getFullYear();}
+updateDate('hi');
+
+function setLang(lang,btn){
+  curLang=lang;
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const t=TR[lang];
+  document.getElementById('logo-sub').textContent=t.logoSub;
+  document.getElementById('break-lbl').textContent=t.breaking;
+  document.getElementById('score-lbl').textContent=t.scoreLbl;
+  document.getElementById('latest-title').textContent=t.latestTitle;
+  document.getElementById('pol-title').textContent=t.polTitle;
+  document.getElementById('spo-title').textContent=t.spoTitle;
+  document.getElementById('ent-title').textContent=t.entTitle;
+  document.getElementById('nav-home').textContent=t.navHome;
+  document.getElementById('nav-politics').textContent=t.navPol;
+  document.getElementById('nav-sports').textContent=t.navSpo;
+  document.getElementById('nav-entertainment').textContent=t.navEnt;
+  document.getElementById('admin-btn').textContent=t.adminBtn;
+  document.getElementById('ap-title').textContent=t.apTitle;
+  document.getElementById('lbl-headline').textContent=t.lblHeadline;
+  document.getElementById('submit-btn').textContent=t.submitBtn;
+  document.getElementById('footer-copy').textContent=t.footerCopy;
+  document.getElementById('footer-links').innerHTML=t.footerLinks.map(l=>`<span>${l}</span>`).join('');
+  document.getElementById('breaking-text').textContent=t.breakingText;
+  const ht=document.getElementById('hero-title');ht.textContent=t.heroTitle;ht.className='hero-title '+t.fontClass;
+  document.getElementById('hero-cat').textContent=t.heroCat;
+  document.getElementById('hero-meta').textContent=t.heroMeta;
+  document.getElementById('st1').textContent=t.st1;document.getElementById('st1').className='side-title '+t.fontClass;
+  document.getElementById('st2').textContent=t.st2;document.getElementById('st2').className='side-title '+t.fontClass;
+  document.getElementById('st3').textContent=t.st3;document.getElementById('st3').className='side-title '+t.fontClass;
+  document.getElementById('sm1').textContent=t.sm1;document.getElementById('sm2').textContent=t.sm2;document.getElementById('sm3').textContent=t.sm3;
+  document.getElementById('sc1').textContent=t.sc1;document.getElementById('sc2').textContent=t.sc2;document.getElementById('sc3').textContent=t.sc3;
+  document.getElementById('f-title').placeholder=t.placeholder;
+  const items=[...t.ticker,...t.ticker];
+  document.getElementById('ticker-wrap').innerHTML=items.map(i=>`<span>${i}</span>`).join('');
+  updateDate(lang);
+}
+
+function setFormLang(lang){
+  formLang=lang;
+  document.getElementById('flang-hi').classList.toggle('active',lang==='hi');
+  document.getElementById('flang-gu').classList.toggle('active',lang==='gu');
+  document.getElementById('f-title').placeholder=TR[lang].placeholder;
+  document.getElementById('f-title').className='lang-'+lang;
+}
+
+function showSec(name,el){
+  document.querySelectorAll('.section-pane').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('sec-'+name).classList.add('active');
+  el.classList.add('active');
+}
+
+function openAdmin(){document.getElementById('adminOverlay').classList.add('open');}
+function closeAdmin(){document.getElementById('adminOverlay').classList.remove('open');}
+function overlayClick(e){if(e.target===document.getElementById('adminOverlay'))closeAdmin();}
+
+const catColors={RAJNEETI:'#1a237e',KHEL:'#1a472a',MANORANJAN:'#4a148c',BREAKING:'#b71c1c'};
+const catSec={RAJNEETI:'politics',KHEL:'sports',MANORANJAN:'entertainment',BREAKING:'home'};
+
+function addNews(){
+  const title=document.getElementById('f-title').value.trim();
+  const cat=document.getElementById('f-cat').value;
+  const emoji=document.getElementById('f-emoji').value;
+  const t=TR[curLang];
+  if(!title){showToast(t.toastFill);return;}
+  const news={id:Date.now(),title,cat,emoji,lang:formLang};
+  userNews.unshift(news);
+  const fc='lang-'+formLang;
+  const catOpt=document.querySelector(`#f-cat option[value="${cat}"]`);
+  const catLabel=(catOpt&&catOpt.getAttribute('data-'+curLang))||cat;
+  const cardHTML=`<div class="card fade-card" id="card-${news.id}"><div class="card-thumb" style="background:${catColors[cat]||'#333'};color:#fff;font-size:32px;display:flex;align-items:center;justify-content:center;">${emoji}</div><div class="card-body"><div class="card-cat">${catLabel}</div><div class="card-title ${fc}">${title}</div><div class="card-meta">${curLang==='hi'?'अभी':'હમણાં'}</div></div></div>`;
+  document.getElementById('home-cards').insertAdjacentHTML('afterbegin',cardHTML);
+  const sec=catSec[cat];
+  if(sec!=='home'){const sc=document.getElementById(sec+'-cards');if(sc)sc.insertAdjacentHTML('afterbegin',cardHTML.replace(`id="card-${news.id}"`,`id="card2-${news.id}"`));}
+  if(cat==='BREAKING'){const ht=document.getElementById('hero-title');ht.textContent=title;ht.className='hero-title '+fc;document.getElementById('hero-cat').textContent=t.breaking;document.getElementById('breaking-text').textContent=title;}
+  renderAdminList();
+  document.getElementById('f-title').value='';
+  showToast(t.toastAdded);
+}
+
+function deleteNews(id){
+  userNews=userNews.filter(n=>n.id!==id);
+  ['card-','card2-'].forEach(p=>{const el=document.getElementById(p+id);if(el)el.remove();});
+  renderAdminList();showToast(TR[curLang].toastDeleted);
+}
+
+function renderAdminList(){
+  document.getElementById('news-count').textContent=userNews.length;
+  const el=document.getElementById('news-list-body');
+  if(!userNews.length){el.innerHTML=`<div style="font-size:12px;color:var(--muted);padding:10px 0;">${curLang==='hi'?'अभी तक कोई खबर नहीं':'હજુ કોઈ સમાચાર નથી'}</div>`;return;}
+  el.innerHTML=userNews.map(n=>`<div class="news-item-row"><div><div class="ni-title lang-${n.lang}">${n.emoji} ${n.title}</div><div class="ni-cat">${n.cat}</div></div><button class="del-btn" onclick="deleteNews(${n.id})">✕</button></div>`).join('');
+}
+renderAdminList();
+
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
+</script>
+</body>
+</html>
